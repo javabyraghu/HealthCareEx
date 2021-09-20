@@ -135,11 +135,14 @@ public class SpecializationController {
 	@GetMapping("/checkCode")
 	@ResponseBody
 	public String validateSpecCode(
-			@RequestParam String code
+			@RequestParam String code,
+			@RequestParam Long id
 			) 
 	{
 		String message = "";
-		if(service.isSpecCodeExist(code)) {
+		if(id==0 && service.isSpecCodeExist(code)) { //register check
+			message = code + ", already exist";
+		} else if(id!=0 && service.isSpecCodeExistForEdit(code,id)) { //edit check
 			message = code + ", already exist";
 		} 
 		
