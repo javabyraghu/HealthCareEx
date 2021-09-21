@@ -24,8 +24,27 @@
                     $("#specCodeError").css('color','red');
                     specCodeError = false;
                 } else {
-                    $("#specCodeError").hide();
-                    specCodeError = true;
+	                var id = 0; //for register
+	                if($("#id").val()!=undefined) { //edit page
+						specCodeError = true;
+						id = $("#id").val();
+					}
+                    $.ajax({
+						url:'checkCode',
+						data: {"code": val,"id":id},
+						success:function(resTxt) {
+							if(resTxt!='') {
+								$("#specCodeError").show();
+                   				$("#specCodeError").html(resTxt);
+                    			$("#specCodeError").css('color','red');
+                    			specCodeError = false;
+							} else {
+								$("#specCodeError").hide();
+								specCodeError = true;
+							}
+						}
+						
+					});
                 }
                 return specCodeError;
             }
