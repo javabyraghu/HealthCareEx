@@ -15,16 +15,22 @@
             <div class="card-body">
                 <table class="table table-hover">
                     <tr class="bg-info text-white">
+                    	<th> </th>
                         <th>NAME</th>
                         <th>EMAIL</th>
+                        <th>SPECIALIZATION</th>
                         <th>MOBILE</th>
                         <th>NOTE</th>
                         <th>ADDRESS</th>
                         <th>OPERATION</th>
                     </tr>
                 	<tr th:each="ob:${list}">
+                		<td>
+                			<img th:src="${ob.photoLoc}" width="50" height="70"/>
+                		</td>
                     	<td>[[${ob.firstName + ' ' +ob.lastName}]]</td>
                     	<td th:text="${ob.email}"></td>
+                    	<td th:text="${ob.specialization.specName}"></td>
                     	<td th:text="${ob.mobile}"></td>
                     	<td th:text="${ob.note}"></td>
                     	<td th:text="${ob.address}"></td>
