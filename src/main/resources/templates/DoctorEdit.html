@@ -33,6 +33,19 @@
                             <span id="idError"></span>
                         </div>
                 </div>
+                <!-- row#8 -->
+                 <div class="row">
+                    <div class="col-2">
+                        <label for="photoLoc">Image</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="file" name="fileOb" id="fileOb" class="form-control" onchange="uploadFile()"/>
+                        <input type="hidden" th:field="*{photoLoc}"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="photoLocError"></span>
+                    </div>
+                </div>
                 <!-- row#1 -->
                 <div class="row">
                     <div class="col-2">
@@ -140,19 +153,6 @@
                         <span id="noteError"></span>
                     </div>
                 </div>
-                
-                <!-- row#8 -->
-                 <div class="row">
-                    <div class="col-2">
-                        <label for="photoLoc">Image</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" th:field="*{photoLoc}" class="form-control"/>
-                    </div>
-                    <div class="col-6">
-                        <span id="photoLocError"></span>
-                    </div>
-                </div>
 
                 <button type="submit" class="btn btn-success">Update <i class="fa fa-wrench" aria-hidden="true"></i></button>
             </form>
@@ -160,5 +160,6 @@
         
       </div>
     </div>
+    <script th:src="@{/myjs/uploadImgBb.js}"></script>
   </body>
 </html>

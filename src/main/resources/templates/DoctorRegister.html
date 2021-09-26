@@ -21,6 +21,19 @@
         </div>
         <div class="card-body">
             <form th:action="@{/doctor/save}" method="POST" >
+             <!-- row#8 -->
+                 <div class="row">
+                    <div class="col-2">
+                        <label for="photoLoc">Image</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="file" name="fileOb" id="fileOb" class="form-control" onchange="uploadFile()"/>
+                        <input type="hidden" id="photoLoc" name="photoLoc"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="photoLocError"></span>
+                    </div>
+                </div>
                 <!-- row#1 -->
                 <div class="row">
                     <div class="col-2">
@@ -129,19 +142,6 @@
                         <span id="noteError"></span>
                     </div>
                 </div>
-                
-                <!-- row#8 -->
-                 <div class="row">
-                    <div class="col-2">
-                        <label for="photoLoc">Image</label>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" name="photoLoc" id="photoLoc" class="form-control"/>
-                    </div>
-                    <div class="col-6">
-                        <span id="photoLocError"></span>
-                    </div>
-                </div>
 
                 <button type="submit" class="btn btn-success">Create <i class="fa fa-plus-square" aria-hidden="true"></i></button>
             </form>
@@ -151,5 +151,6 @@
         </div>
       </div>
     </div>
+    <script th:src="@{/myjs/uploadImgBb.js}"></script>
   </body>
 </html>
