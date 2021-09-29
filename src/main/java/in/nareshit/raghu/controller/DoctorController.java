@@ -3,6 +3,7 @@ package in.nareshit.raghu.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,14 @@ import in.nareshit.raghu.entity.Doctor;
 import in.nareshit.raghu.exception.DoctorNotFoundException;
 import in.nareshit.raghu.service.IDoctorService;
 import in.nareshit.raghu.service.ISpecializationService;
+import in.nareshit.raghu.util.MyMailUtil;
 
 @Controller
 @RequestMapping("/doctor")
 public class DoctorController {
+	
+	@Autowired
+	private MyMailUtil mailUtil; 
 	
 	@Autowired
 	private IDoctorService service;
@@ -51,7 +56,19 @@ public class DoctorController {
 			)
 	{
 		Long id = service.saveDoctor(doctor);
-		attributes.addAttribute("message", "Doctor ("+id+") is created");
+		String message = "Doctor ("+id+") is created";
+		attributes.addAttribute("message", message);
+		if(id!=null) {
+			new Thread(new Runnable() {
+				public void run() {
+					mailUtil.send(
+							doctor.getEmail(), 
+							"SUCCESS", 
+							message,
+							new ClassPathResource("/static/myres/sample.pdf"));
+				}
+			}).start();
+		}
 		return "redirect:register";
 	}
 	
