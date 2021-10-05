@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h3>Create Appointment</h3>
+        </div>
+        <div class="card-body">
+          <form th:action="@{/appointment/save}" method="POST">
+            <!-- row#1 -->
+            <div class="row">
+              <div class="col-2">
+                <label for="doctor">Doctor</label>
+              </div>
+              <div class="col-4">
+                <select name="doctor.id" id="doctor" class="form-control">
+                	<option value="">-SELECT-</option>
+                	<option th:each="ob:${doctors}" th:value="${ob.key}" th:text="${ob.value}">
+                	</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <span id="dateError"></span>
+              </div>
+            </div>
+            <!-- row#2 -->
+            <div class="row">
+              <div class="col-2">
+                <label for="date">Date</label>
+              </div>
+              <div class="col-4">
+                <input type="date" name="date" id="date" class="form-control" />
+              </div>
+              <div class="col-6">
+                <span id="dateError"></span>
+              </div>
+            </div>
+
+            <!-- row#3 -->
+            <div class="row">
+              <div class="col-2">
+                <label for="noOfSlots">No.Of Slots</label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  name="noOfSlots"
+                  id="noOfSlots"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6">
+                <span id="noOfSlotsError"></span>
+              </div>
+            </div>
+
+            <!-- row#4 -->
+            <div class="row">
+              <div class="col-2">
+                <label for="fee">Amount</label>
+              </div>
+              <div class="col-4">
+                <input type="text" name="fee" id="fee" class="form-control" />
+              </div>
+              <div class="col-6">
+                <span id="feeError"></span>
+              </div>
+            </div>
+
+            <!-- row#5 -->
+            <div class="row">
+              <div class="col-2">
+                <label for="details">Details</label>
+              </div>
+              <div class="col-4">
+                <textarea
+                  name="details"
+                  id="details"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-6">
+                <span id="detailsError"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+              Create <i class="fa fa-plus-square" aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+        <div class="card-footer">
+          <span>[[${message}]]</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
