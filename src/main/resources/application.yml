@@ -1,6 +1,11 @@
 server:
   port: 80
   
+master:
+ user:
+  name: NIT
+  email: nit@gmail.com
+  
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
