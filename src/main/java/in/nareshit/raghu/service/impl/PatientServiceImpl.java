@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import in.nareshit.raghu.constants.UserRoles;
 import in.nareshit.raghu.entity.Patient;
+import in.nareshit.raghu.entity.User;
 import in.nareshit.raghu.repo.PatientRepository;
 import in.nareshit.raghu.service.IPatientService;
+import in.nareshit.raghu.service.IUserService;
+import in.nareshit.raghu.util.UserUtil;
 
 /**
  * @author:RAGHU SIR 
@@ -18,11 +22,25 @@ import in.nareshit.raghu.service.IPatientService;
 public class PatientServiceImpl implements IPatientService {
 	@Autowired
 	private PatientRepository repo;
+	@Autowired
+	private IUserService userService;
+	@Autowired
+	private UserUtil util;
 
 	@Override
 	@Transactional
 	public Long savePatient(Patient patient) {
-		return repo.save(patient).getId();
+		Long id = repo.save(patient).getId();
+		if(id!=null) {
+			User user = new User();
+			user.setDisplayName(patient.getFirstName()+" "+patient.getLastName());
+			user.setUsername(patient.getEmail());
+			user.setPassword(util.genPwd());
+			user.setRole(UserRoles.PATIENT.name());
+			userService.saveUser(user);
+			// TODO : Email part is pending
+		}
+		return id;
 	}
 
 	@Override
