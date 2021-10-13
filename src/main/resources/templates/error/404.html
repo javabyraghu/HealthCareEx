@@ -1,0 +1,13 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<div th:replace="fragments/commonui :: menu"></div>
+	<div class="container">
+		<h3>Service Not Exist</h3>
+		<a th:href="@{/spec/all}" class="btn btn-primary">GOTO HOME</a>
+	</div>
+</body>
+
+</html>
