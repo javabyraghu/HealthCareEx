@@ -1,6 +1,11 @@
 server:
   port: 80
   
+master:
+ user:
+  name: NIT-RAGHU
+  email: javabyraghu@gmail.com
+  
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,7 +22,7 @@ spring:
   mail:    host: smtp.gmail.com
     port: 587
     username: sample2025nit
-    password: test36Abc!
+    password: Abb770Track
     properties:
      mail:
       smtp:
