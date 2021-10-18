@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import in.nareshit.raghu.constants.UserRoles;
-
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -29,9 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/patient/register","/patient/save").permitAll()
-		.antMatchers("/patient/all").hasAuthority(UserRoles.ADMIN.name())
-		.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
+		//.antMatchers("/patient/register","/patient/save").permitAll()
+		//.antMatchers("/patient/all").hasAuthority(UserRoles.ADMIN.name())
+		//.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
 		
 		.anyRequest().authenticated()
 		

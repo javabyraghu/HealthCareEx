@@ -53,6 +53,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 					user.getPassword(), 
 					Collections.singletonList(new SimpleGrantedAuthority(user.getRole()))
 					);
+			
 		}
 	}
 
