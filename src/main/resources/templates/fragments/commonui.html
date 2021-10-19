@@ -21,7 +21,8 @@
       
       
       <!--Specialization START-->
-      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+<!--      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">-->
+      <li class="nav-item dropdown" >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Specialization
         </a>
@@ -33,7 +34,8 @@
       <!--Specialization END-->
       
       <!--Doctor START-->
-      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+      <!--<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">-->
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Doctor
         </a>
@@ -52,19 +54,21 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" th:href="@{/patient/register}">Add</a>
-          <a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('ADMIN')">View All</a>
+          <a class="dropdown-item" th:href="@{/patient/all}">View All</a>
         </div>
       </li>
       <!--Patient END-->
       
       <!--Patient START-->
-      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+ <!--     <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">-->
+      <li class="nav-item dropdown" >
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Appointment
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" th:href="@{/appointment/register}">Add</a>
           <a class="dropdown-item" th:href="@{/appointment/all}">View All</a>
+          <a class="dropdown-item" th:href="@{/appointment/view}">Book</a>
         </div>
       </li>
       <!--Patient END-->
