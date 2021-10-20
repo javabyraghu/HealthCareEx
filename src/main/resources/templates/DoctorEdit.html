@@ -1,0 +1,155 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+ <div th:replace="fragments/commonui :: header"></div>
+
+  <body>
+  <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h3>Doctor Edit</h3>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/doctor/update}" method="POST" th:object="${doctor}">
+           		 <!-- row#0 -->
+                   <div class="row">
+                        <div class="col-2">
+                            <label for="id">ID</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" th:field="*{id}" class="form-control" readOnly/>
+                        </div>
+                        <div class="col-6">
+                            <span id="idError"></span>
+                        </div>
+                </div>
+                <!-- row#8 -->
+                 <div class="row">
+                    <div class="col-2">
+                        <label for="photoLoc">Image</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="file" name="fileOb" id="fileOb" class="form-control" onchange="uploadFile()"/>
+                        <input type="hidden" th:field="*{photoLoc}"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="photoLocError"></span>
+                    </div>
+                </div>
+                <!-- row#1 -->
+                <div class="row">
+                    <div class="col-2">
+                        <label for="firstName">FirstName</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" th:field="*{firstName}" class="form-control"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="firstNameError"></span>
+                    </div>
+                </div>
+
+                 <!-- row#2 -->
+                 <div class="row">
+                    <div class="col-2">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" th:field="*{lastName}" class="form-control"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="lastNameError"></span>
+                    </div>
+                </div>
+
+                <!-- row#3 -->
+                <div class="row">
+                    <div class="col-2">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" th:field="*{email}" class="form-control"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="emailError"></span>
+                    </div>
+                </div>
+                
+                <!-- row#Dynamic -->
+                <div class="row">
+                    <div class="col-2">
+                        <label for="specialization">Specialization</label>
+                    </div>
+                    <div class="col-4">
+                        <select th:field="*{specialization}" name="specialization.id" class="form-control">
+                        	<option value="">-SELECT-</option>
+                        	<option th:each="ob:${specializations}" th:value="${ob.key}" th:text="${ob.value}" ></option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <span id="specializationError"></span>
+                    </div>
+                </div>
+
+                <!-- row#4 -->
+                <div class="row">
+                    <div class="col-2">
+                        <label for="address">Address</label>
+                    </div>
+                    <div class="col-4">
+                        <textarea th:field="*{address}" class="form-control"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <span id="addressError"></span>
+                    </div>
+                </div>
+
+                <!-- row#5 -->
+                <div class="row">
+                    <div class="col-2">
+                        <label for="mobile">Mobile</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" th:field="*{mobile}" class="form-control"/>
+                    </div>
+                    <div class="col-6">
+                        <span id="mobileError"></span>
+                    </div>
+                </div>
+
+                <!-- row#6 -->
+                <div class="row">
+                    <div class="col-2">
+                        <label for="gender">Gender</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="radio" th:field="*{gender}" value="Male"/> Male
+                        <input type="radio" th:field="*{gender}" value="Female"/> Female
+                    </div>
+                    <div class="col-6">
+                        <span id="genderError"></span>
+                    </div>
+                </div>
+
+                 <!-- row#7 -->
+                 <div class="row">
+                    <div class="col-2">
+                        <label for="note">Note</label>
+                    </div>
+                    <div class="col-4">
+                        <textarea th:field="*{note}" class="form-control"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <span id="noteError"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Update <i class="fa fa-wrench" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        
+      </div>
+    </div>
+    <script th:src="@{/myjs/uploadImgBb.js}"></script>
+  </body>
+</html>
