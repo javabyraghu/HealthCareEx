@@ -128,5 +128,19 @@ public class AppointmentController {
 		return "AppointmentSearch";
 	}
 	
-	//.. book result...
+	//.. view slots...
+	@GetMapping("/viewSlot")
+	public String showSlots(
+			@RequestParam Long id,
+			Model model
+			) 
+	{
+		//fetch apps based on doctor id
+		List<Object[]> list = service.getAppoinmentsByDoctor(id);
+		model.addAttribute("list", list);
+		Doctor doc = doctorService.getOneDoctor(id);
+		model.addAttribute("message", "RESULTS SHOWING FOR : " + doc.getFirstName()+" "+doc.getLastName());
+		return "AppointmentSlots";
+	}
+	
 }
