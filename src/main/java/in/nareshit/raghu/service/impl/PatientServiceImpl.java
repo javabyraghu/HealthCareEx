@@ -12,6 +12,7 @@ import in.nareshit.raghu.entity.User;
 import in.nareshit.raghu.repo.PatientRepository;
 import in.nareshit.raghu.service.IPatientService;
 import in.nareshit.raghu.service.IUserService;
+import in.nareshit.raghu.util.MyMailUtil;
 import in.nareshit.raghu.util.UserUtil;
 
 /**
@@ -27,18 +28,28 @@ public class PatientServiceImpl implements IPatientService {
 	@Autowired
 	private UserUtil util;
 
+	@Autowired
+	private MyMailUtil mailUtil ;
+
 	@Override
 	@Transactional
 	public Long savePatient(Patient patient) {
 		Long id = repo.save(patient).getId();
 		if(id!=null) {
+			String pwd = util.genPwd();
 			User user = new User();
 			user.setDisplayName(patient.getFirstName()+" "+patient.getLastName());
 			user.setUsername(patient.getEmail());
-			user.setPassword(util.genPwd());
+			user.setPassword(pwd);
 			user.setRole(UserRoles.PATIENT.name());
-			userService.saveUser(user);
-			// TODO : Email part is pending
+			Long genId  = userService.saveUser(user);
+			if(genId!=null)
+				new Thread(new Runnable() {
+					public void run() {
+						String text = "Your name is " + patient.getEmail() +", password is "+ pwd;
+						mailUtil.send(patient.getEmail(), "PATIENT ADDED", text);
+					}
+				}).start();
 		}
 		return id;
 	}
