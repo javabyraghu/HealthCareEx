@@ -76,7 +76,7 @@
       
       <li class="nav-item">
         <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()" >
-        Logout (<span sec:authentication="name"></span> <span sec:authentication="principal.authorities"></span>)
+        Logout ( <span th:text="${session.userOb.displayName}"></span>  <span sec:authentication="principal.authorities"></span>)
         </a>
       </li>
      
