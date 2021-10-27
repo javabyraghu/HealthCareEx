@@ -6,8 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.nareshit.raghu.entity.User;
 import in.nareshit.raghu.service.IUserService;
@@ -24,6 +27,11 @@ public class UserController {
 		return "UserLogin";
 	}
 	
+	@GetMapping("/profile")
+	public String showProfile() {
+		return "UserProfile";
+	}
+	
 	@GetMapping("/setup")
 	public String setup(HttpSession session, Principal p) 
 	{
@@ -37,6 +45,33 @@ public class UserController {
 		//store in HttpSession
 		session.setAttribute("userOb", user);
 		
+		//session.setMaxInactiveInterval(10*60);
+		
 		return "UserHome";
+	}
+	
+	@GetMapping("/showPwdUpdate")
+	public String showPwdUpdate() {
+		return "UserPwdUpdate";
+	}
+	
+	@PostMapping("/pwdUpdate")
+	public String updatePwd(
+			@RequestParam String password,
+			HttpSession session,
+			Model model
+			) 
+	{
+		//read current user from session
+		User user = (User) session.getAttribute("userOb");
+		//read userId
+		Long userId = user.getId();
+		
+		//make service call
+		service.updateUserPwd(password, userId);
+		// TODO : EMAIL TASK
+		model.addAttribute("message", "Password Updated!");
+		return "UserPwdUpdate";
+		//return "redirect:logout"
 	}
 }
