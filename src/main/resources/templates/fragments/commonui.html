@@ -74,11 +74,19 @@
       </li>
       <!--Appointment END-->
       
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()" >
-        Logout ( <span th:text="${session.userOb.displayName}"></span>  <span sec:authentication="principal.authorities"></span>)
+      <!--Appointment START-->
+       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span th:text="${session.userOb.displayName}"></span> <span sec:authentication="principal.authorities"></span>
         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/user/profile}"> My Profile</a>
+          <a class="dropdown-item" th:href="@{/user/showPwdUpdate}">Password Update</a>
+          <a class="dropdown-item" th:href="@{/logout}"> Logout</a>
+        </div>
       </li>
+      <!--Appointment END-->
+      
      
     </ul>
     
