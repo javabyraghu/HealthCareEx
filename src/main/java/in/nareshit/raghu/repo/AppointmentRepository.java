@@ -15,4 +15,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	
 	@Query("SELECT aptm.date, aptm.noOfSlots, aptm.fee FROM Appointment aptm INNER JOIN aptm.doctor as doctor WHERE doctor.id=:docId")
 	public List<Object[]> getAppoinmentsByDoctor(Long docId);
+	
+	@Query("SELECT aptm.date, aptm.noOfSlots, aptm.fee, aptm.details FROM Appointment aptm INNER JOIN aptm.doctor as doctor WHERE doctor.email=:userName")
+	public List<Object[]> getAppoinmentsByDoctorEmail(String userName);
 }
