@@ -1,5 +1,6 @@
 package in.nareshit.raghu.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -141,6 +142,16 @@ public class AppointmentController {
 		Doctor doc = doctorService.getOneDoctor(id);
 		model.addAttribute("message", "RESULTS SHOWING FOR : " + doc.getFirstName()+" "+doc.getLastName());
 		return "AppointmentSlots";
+	}
+	
+	@GetMapping("/currentDoc")
+	public String getCurrentDocAppointments(
+			Model model,
+			Principal p) 
+	{
+		List<Object[]> list=service.getAppoinmentsByDoctorEmail(p.getName());
+		model.addAttribute("list",list);
+		return "AppointmentForDoctor";
 	}
 	
 }
