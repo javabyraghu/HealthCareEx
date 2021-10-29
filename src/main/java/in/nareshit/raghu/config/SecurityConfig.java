@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import in.nareshit.raghu.constants.UserRoles;
 
@@ -34,14 +35,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/doctor/**").hasAuthority(UserRoles.ADMIN.name())
 		.antMatchers("/appointment/register","/appointment/save","/appointment/all").hasAuthority(UserRoles.ADMIN.name())
 		.antMatchers("/appointment/view","/appointment/viewSlot").hasAuthority(UserRoles.PATIENT.name())
+		.antMatchers("/user/login","/login").permitAll()
 		
 		.anyRequest().authenticated()
 		
 		.and()
 		.formLogin()
-		.defaultSuccessUrl("/spec/all",true)
+		.loginPage("/user/login") //show Login Page
+		.loginProcessingUrl("/login") //POST (do login)
+		.defaultSuccessUrl("/user/setup",true)
+		.failureUrl("/user/login?error=true") //If login is failed
 		
 		.and()
-		.logout();
+		.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //URL for Logout
+		.logoutSuccessUrl("/user/login?logout=true") // On logout success
+		;
 	}
 }
