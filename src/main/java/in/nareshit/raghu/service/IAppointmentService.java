@@ -15,4 +15,5 @@ public interface IAppointmentService {
 	Appointment getOneAppointment(Long id);
 	List<Appointment> getAllAppointments();
 	List<Object[]> getAppoinmentsByDoctor(Long docId);
+	List<Object[]> getAppoinmentsByDoctorEmail(String userName);
 }
