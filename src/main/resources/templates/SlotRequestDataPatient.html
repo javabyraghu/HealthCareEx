@@ -1,0 +1,39 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-primary text-center text-white">
+                <h3>SLOT REQUEST FOR PATIENT : [[${session.userOb.displayName}]]</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <tr class="bg-info text-white">
+                    	<th> </th>
+                        <th>DATE</th>
+                        <th>DOCTOR</th>
+                        <th>STATUS</th>
+                        <th> </th>
+                    </tr>
+                	<tr th:each="ob,i:${list}">
+                		<td>[[${i.count}]]</td>
+                    	<td>[[${ob.appointment.date}]]</td>
+                    	<td>[[${ob.appointment.doctor.firstName +' '+ob.appointment.doctor.lastName}]]</td>
+                    	<td>
+                    	  	[[${ob.status}]]  
+                    	</td>
+                    	<td>
+                    		<th:block th:if="${ob.status=='ACCEPTED'}">
+                    			<a th:href="@{/slots/cancel(id=${ob.id})}" class="btn btn-danger">CANCEL </a>
+                    		</th:block>
+                    	</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
