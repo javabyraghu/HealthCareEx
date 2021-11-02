@@ -1,0 +1,115 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-info text-white text-center">
+          <h3>USER NEW PASSWORD</h3>
+        </div>
+        <div class="card-body">
+          <form id="pwdForm" method="post" th:action="@{/user/pwdUpdate}">
+            <div class="row">
+              <div class="col-3">
+                <label>New Password</label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="password"
+                  name="password"
+                  id="pwd1"
+                  class="form-control"
+                  
+                />
+              </div>
+              <div class="col-5">
+                <span id="pwd1Error"></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-3">
+                <label>Re Enter Password</label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="password"
+                  name="repassword"
+                  id="pwd2"
+                  class="form-control"
+                  
+                />
+              </div>
+              <div class="col-5">
+                <span id="pwd2Error"></span>
+              </div>
+            </div>
+            <button class="btn btn-success">Update</button>
+          </form>
+        </div>
+        <div class="card-footer bg-white text-success" th:if="${message!=null}">
+                <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $("#pwd1Error").hide();
+        $("#pwd2Error").hide();
+
+        var pwd1Error = false;
+        var pwd2Error = false;
+
+        function validate_password1() {
+          var val = $("#pwd1").val();
+          var exp = /^[A-Za-z0-9\.\-\,\_]{6,20}$/;
+          if (val == "") {
+            $("#pwd1Error").show();
+            $("#pwd1Error").html("*<b>Password</b> Can not be empty");
+            $("#pwd1Error").css("color", "red");
+            pwd1Error = false;
+          } else if (!exp.test(val)) {
+            $("#pwd1Error").show();
+            $("#pwd1Error").html(
+              "*<b>Password</b> can have 6 to 20 chars[A-Za-z0-9.,-_]"
+            );
+            $("#pwd1Error").css("color", "red");
+            pwd1Error = false;
+          } else {
+            $("#pwd1Error").hide();
+            pwd1Error = true;
+          }
+          return pwd1Error;
+        }
+        function validate_password2() {
+          var p1 = $("#pwd1").val();
+          var p2 = $("#pwd2").val();
+          if (p1 != p2) {
+            $("#pwd2Error").show();
+            $("#pwd2Error").html("Password not matching");
+            $("#pwd2Error").css("color", "red");
+            pwd2Error = false;
+          } else {
+            $("#pwd2Error").hide();
+            pwd2Error = true;
+          }
+          return pwd2Error;
+        }
+        $("#pwd1").keyup(function () {
+          validate_password1();
+        });
+        $("#pwd2").keyup(function () {
+          validate_password2();
+        });
+        $("#pwdForm").submit(function(){
+            validate_password1();
+            validate_password2();
+            if(pwd1Error && pwd2Error) return true;
+            else return false;
+        })
+      });
+    </script>
+  </body>
+</html>
