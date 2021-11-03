@@ -1,0 +1,30 @@
+<html>
+ <div th:replace="fragments/commonui :: header"></div>
+
+  <body>
+  <div th:replace="fragments/commonuser :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h3>User New Password Generator</h3>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/user/genNewPwd}" method="POST" >
+                <div class="row">
+                    <div class="col-2">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="email" id="email" class="form-control" required/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Generate </button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <span>[[${message}]]</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
