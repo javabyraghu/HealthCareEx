@@ -75,7 +75,20 @@
       </li>
       <!--Appointment END-->
       
-      <!--Appointment START-->
+      <!--SLOT START-->
+       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Slots Request
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/slots/all}" sec:authorize="hasAuthority('ADMIN')">View All</a>
+          <a class="dropdown-item" th:href="@{/slots/patient}" sec:authorize="hasAuthority('PATIENT')">My Slots</a>
+          <a class="dropdown-item" th:href="@{/slots/doctor}" sec:authorize="hasAuthority('DOCTOR')">My Slots</a>
+        </div>
+      </li>
+      <!--SLOT END-->
+      
+      <!--USER START-->
        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span th:text="${session.userOb.displayName}"></span> <span sec:authentication="principal.authorities"></span>
@@ -86,7 +99,7 @@
           <a class="dropdown-item" th:href="@{/logout}"> Logout</a>
         </div>
       </li>
-      <!--Appointment END-->
+      <!--USER END-->
       
      
     </ul>
