@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import in.nareshit.raghu.entity.Specialization;
@@ -27,6 +29,11 @@ public class SpecializationServiceImpl implements ISpecializationService {
 	@Override
 	public List<Specialization> getAllSpecializations() {
 		return repo.findAll();
+	}
+	
+	@Override
+	public Page<Specialization> getAllSpecializations(Pageable pageable) {
+		return repo.findAll(pageable);
 	}
 
 	@Override

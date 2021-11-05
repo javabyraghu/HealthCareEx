@@ -3,6 +3,9 @@ package in.nareshit.raghu.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +55,7 @@ public class SpecializationController {
 	/**
 	 * 3. display all Specializations
 	 */
-	@GetMapping("/all")
+	//@GetMapping("/all")
 	public String viewAll(
 			Model model,
 			@RequestParam(value = "message",required = false) String message
@@ -60,6 +63,21 @@ public class SpecializationController {
 	{
 		List<Specialization> list = service.getAllSpecializations();
 		model.addAttribute("list",list);
+		model.addAttribute("message", message);
+		return "SpecializationData";
+	}
+	//... /all?page=3
+	@GetMapping("/all")
+	public String viewAllPageable(
+			@PageableDefault(page = 0, size = 3) Pageable pageable,
+			Model model,
+			@RequestParam(value = "message",required = false) String message
+			)
+	{
+		
+		Page<Specialization> page = service.getAllSpecializations(pageable);
+		model.addAttribute("list",page.getContent());
+		model.addAttribute("page",page);
 		model.addAttribute("message", message);
 		return "SpecializationData";
 	}
