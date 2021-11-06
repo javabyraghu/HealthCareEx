@@ -29,6 +29,31 @@
                     	</td>
                     </tr>
                 </table>
+                <hr/>
+                
+                <nav aria-label="Page navigation example ">
+  					<ul class="pagination justify-content-center">
+  					    <li class="page-item" th:if="${!page.isFirst()}">
+    					  <a class="page-link"  th:href="@{/spec/all(page=0)}">First</a>
+    					</li>
+    					<li class="page-item" th:if="${page.hasPrevious()}">
+    					  <a class="page-link"  th:href="@{/spec/all(page=${page.number-1})}">Previous</a>
+    					</li>
+    					
+    					<th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">
+    						<li class="page-item">
+    						   <a class="page-link" th:href="@{/spec/all(page=${i})}">[[${i+1}]]</a>
+    						</li>
+    					</th:block>
+    					<li class="page-item" th:if="${page.hasNext()}">
+    					  <a class="page-link"  th:href="@{/spec/all(page=${page.number+1})}">Next</a>
+    					</li>
+    					<li class="page-item" th:if="${!page.isLast()}">
+    					  <a class="page-link"  th:href="@{/spec/all(page=${page.totalPages-1})}">Last</a>
+    					</li>
+  					</ul>
+				</nav>
+                
             </div>
             <div class="card-footer bg-white text-success" th:if="${message!=null}">
                 <span th:text="${message}"></span>
