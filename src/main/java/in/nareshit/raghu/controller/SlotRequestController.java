@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import in.nareshit.raghu.constants.SlotStatus;
 import in.nareshit.raghu.entity.Appointment;
 import in.nareshit.raghu.entity.Patient;
 import in.nareshit.raghu.entity.SlotRequest;
@@ -53,7 +54,7 @@ public class SlotRequestController {
 		SlotRequest sr = new SlotRequest();
 		sr.setAppointment(app);
 		sr.setPatient(patient);
-		sr.setStatus("PENDING");
+		sr.setStatus(SlotStatus.PENDING.name());
 		try {
 
 			service.saveSlotRequest(sr);
@@ -82,7 +83,7 @@ public class SlotRequestController {
 	}
 	
 	@GetMapping("/patient")
-	public String viewMyReq(
+	public String viewMyReqPatient(
 			Principal principal,
 			Model model) 
 	{
@@ -92,12 +93,28 @@ public class SlotRequestController {
 		return "SlotRequestDataPatient";
 	}
 	
+	@GetMapping("/doctor")
+	public String viewMyReqDoc(
+			Principal principal,
+			Model model) 
+	{
+		String email = principal.getName();
+		List<SlotRequest> list = service.viewSlotsByDoctorMail(email);
+		model.addAttribute("list", list);
+		return "SlotRequestDataDoctor";
+	}
+	
 	@GetMapping("/accept")
 	public String updateSlotAccept(
 			@RequestParam Long id
 			) 
 	{
-		service.updateSlotRequestStatus(id, "ACCEPTED");
+		service.updateSlotRequestStatus(id, SlotStatus.ACCEPTED.name());
+		SlotRequest sr = service.getOneSlotRequest(id);
+		if(sr.getStatus().equals(SlotStatus.ACCEPTED.name())) {
+			appointmentService.updateSlotCountForAppoinment(
+					sr.getAppointment().getId(), -1);
+		}
 		return "redirect:all";
 	}
 	
@@ -106,8 +123,22 @@ public class SlotRequestController {
 			@RequestParam Long id
 			) 
 	{
-		service.updateSlotRequestStatus(id, "REJECTED");
+		service.updateSlotRequestStatus(id, SlotStatus.REJECTED.name());
 		return "redirect:all";
+	}
+	
+	@GetMapping("/cancel")
+	public String cancelSlotReject(
+			@RequestParam Long id
+			) 
+	{
+		SlotRequest sr = service.getOneSlotRequest(id);
+		if(sr.getStatus().equals(SlotStatus.ACCEPTED.name())) {
+			service.updateSlotRequestStatus(id, SlotStatus.CANCELLED.name());
+			appointmentService.updateSlotCountForAppoinment(
+					sr.getAppointment().getId(), 1);
+		}
+		return "redirect:patient";
 	}
 
 
