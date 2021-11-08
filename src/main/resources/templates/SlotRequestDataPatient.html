@@ -27,7 +27,8 @@
                     	</td>
                     	<td>
                     		<th:block th:if="${ob.status=='ACCEPTED'}">
-                    			<a th:href="@{/slots/cancel(id=${ob.id})}" class="btn btn-danger">CANCEL </a>
+                           		<a th:href="@{/slots/cancel(id=${ob.id})}" class="btn btn-danger">CANCEL <i class="fa fa-ban" aria-hidden="true"></i> </a> |
+                    			<a th:href="@{/slots/invoice(id=${ob.id})}" class="btn btn-warning">INVOICE <i class="fa fa-print" aria-hidden="true"></i> </a>
                     		</th:block>
                     	</td>
                     </tr>

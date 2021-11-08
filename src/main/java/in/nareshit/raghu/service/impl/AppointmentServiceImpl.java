@@ -66,4 +66,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
 	public void updateSlotCountForAppoinment(Long id, int count) {
 		repo.updateSlotCountForAppoinment(id, count);
 	}
+	@Override
+	public long getAppointmentCount() {
+		return repo.count();
+	}
 }

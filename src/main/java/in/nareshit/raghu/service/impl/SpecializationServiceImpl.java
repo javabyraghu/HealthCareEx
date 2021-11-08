@@ -79,4 +79,8 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		Map<Long,String> map = MyCollectionsUtil.convertToMap(list);
 		return map;
 	}
+	@Override
+	public long getSpecializationCount() {
+		return repo.count();
+	}
 }

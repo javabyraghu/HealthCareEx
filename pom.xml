@@ -18,6 +18,12 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+		<!-- For Charts -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.5.0</version>
+		</dependency>
 		<!-- For excel export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
