@@ -53,6 +53,14 @@ public class InvoiceSlipPdfView extends AbstractPdfView {
 		//Get Data from Controller
 		SlotRequest sr = (SlotRequest) model.get("slotRequest");
 
+		
+		Font invoiceFont = new Font(Font.TIMES_ROMAN, 20, Font.BOLD, Color.BLACK);
+		Paragraph invoiceId = new Paragraph(sr.getPatient().getFirstName()+" "+sr.getPatient().getLastName()+"-"+System.currentTimeMillis(),invoiceFont);
+		invoiceId.setAlignment(Element.ALIGN_CENTER);
+		invoiceId.setSpacingBefore(10.0f);
+		invoiceId.setSpacingAfter(10.0f);
+		//add to document
+		document.add(invoiceId);
 
 		//create element
 		//Font (Family, Size, Style, Color)
@@ -64,7 +72,7 @@ public class InvoiceSlipPdfView extends AbstractPdfView {
 		//add to document
 		document.add(title);
 
-		Font addrFont = new Font(Font.TIMES_ROMAN, 12, Font.BOLD, Color.BLACK);
+		Font addrFont = new Font(Font.TIMES_ROMAN, 16, Font.BOLD, Color.BLACK);
 		Paragraph address = new Paragraph("Ameerpt, HYD, 500032",addrFont);
 		address.setAlignment(Element.ALIGN_CENTER);
 		address.setSpacingAfter(25.0f);
@@ -88,6 +96,8 @@ public class InvoiceSlipPdfView extends AbstractPdfView {
 		double finalAmt = fee + (2*gst);
 
 		PdfPTable table = new PdfPTable(4);
+		table.setSpacingBefore(35.0f);
+		table.setSpacingAfter(15.0f);
 		table.addCell(getDesignCell("Appointment Date"));
 		table.addCell(getTextCell(date));
 		table.addCell(getDesignCell("Patient Name"));
@@ -105,33 +115,38 @@ public class InvoiceSlipPdfView extends AbstractPdfView {
 
 		document.add(table);
 
-		PdfPTable billdata = new PdfPTable(new float[] {15.0f,5.0f});
-
-		billdata.setSpacingBefore(45.0f);
+		PdfPTable billdata = new PdfPTable(2);
+		billdata.getDefaultCell().setBorderWidth(0f);
+		billdata.setSpacingBefore(35.0f);
 		billdata.setHorizontalAlignment(Element.ALIGN_RIGHT);
-		billdata.addCell("Booking Amount ");
+		billdata.addCell(getTextCell("Booking Amount "));
 		billdata.addCell(sr.getAppointment().getFee().toString());
-		billdata.addCell("CGST ");
+		billdata.addCell(getTextCell("CGST "));
 		billdata.addCell(String.valueOf(gst));
-		billdata.addCell("SGST ");
+		billdata.addCell(getTextCell("SGST "));
 		billdata.addCell(String.valueOf(gst));
-		billdata.addCell("Total Amount ");
-		billdata.addCell(String.valueOf(finalAmt));
+		billdata.addCell(getTextCell("Total Amount "));
+		billdata.addCell(getTextCell(String.valueOf(finalAmt)));
 
 		document.add(billdata);
 
-		Font noteFont = new Font(Font.TIMES_ROMAN, 16, Font.BOLD, Color.RED);
+		Font noteFont = new Font(Font.TIMES_ROMAN, 14, Font.BOLD, Color.RED);
 		Paragraph note = new Paragraph("NOTE: THIS IS AUTO-GENERATED PAYMENT SLIP, FOR MORE DETALS CONTACT FRONTDESK @ 1234567890",noteFont);
+		note.setAlignment(Element.ALIGN_CENTER);
 		note.setSpacingBefore(15.0f);
 		document.add(note);
 
 		Font signFont = new Font(Font.TIMES_ROMAN, 20, Font.BOLD, Color.BLACK);
 		Paragraph sign = new Paragraph("SIGNATURE",signFont);
-		sign.setAlignment(Element.ALIGN_LEFT);
-		sign.setSpacingBefore(80.0f);
+		sign.setAlignment(Element.ALIGN_RIGHT);
+		sign.setSpacingBefore(35.0f);
 		sign.setSpacingAfter(10.0f);
 		//add to document
 		document.add(sign);
+		Paragraph datePar = new Paragraph("Date :" + new Date());
+		datePar.setAlignment(Element.ALIGN_RIGHT);
+		document.add(datePar);
+		
 
 	}
 
