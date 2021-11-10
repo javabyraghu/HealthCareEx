@@ -14,7 +14,7 @@ import in.nareshit.raghu.entity.Appointment;
  */
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 	
-	@Query("SELECT aptm.date, aptm.noOfSlots, aptm.fee, aptm.id FROM Appointment aptm INNER JOIN aptm.doctor as doctor WHERE doctor.id=:docId AND aptm.noOfSlots>0")
+	@Query("SELECT aptm.date, aptm.noOfSlots, aptm.fee, aptm.id FROM Appointment aptm INNER JOIN aptm.doctor as doctor WHERE doctor.id=:docId AND aptm.noOfSlots>0 AND aptm.date>= current_date")
 	public List<Object[]> getAppoinmentsByDoctor(Long docId);
 	
 	@Query("SELECT aptm.date, aptm.noOfSlots, aptm.fee, aptm.details FROM Appointment aptm INNER JOIN aptm.doctor as doctor WHERE doctor.email=:userName AND aptm.noOfSlots>0")

@@ -86,4 +86,9 @@ public class PatientServiceImpl implements IPatientService {
 	public Patient getOneByEmail(String email) {
 		return repo.findByEmail(email).get();
 	}
+	
+	@Override
+	public long getPatientCount() {
+		return repo.count();
+	}
 }
