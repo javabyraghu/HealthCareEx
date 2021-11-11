@@ -89,5 +89,10 @@ public class DoctorServiceImpl implements IDoctorService {
 	public List<Doctor> findDoctorBySpecName(Long specId) {
 		return repo.findDoctorBySpecName(specId);
 	}
+	
+	@Override
+	public long getDoctorCount() {
+		return repo.count();
+	}
 
 }

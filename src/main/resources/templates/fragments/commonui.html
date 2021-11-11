@@ -88,6 +88,13 @@
       </li>
       <!--SLOT END-->
       
+      <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link" th:href="@{/doc/all}">Documents</a>
+      </li>
+      <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link" th:href="@{/slots/dashboard}">Dashboard</a>
+      </li>
+      
       <!--USER START-->
        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,6 +108,7 @@
       </li>
       <!--USER END-->
       
+     
      
     </ul>
     

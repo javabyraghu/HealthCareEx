@@ -20,4 +20,6 @@ public interface IPatientService {
 	List<Patient> getAllPatients();
 	
 	Patient getOneByEmail(String email);
+	
+	long getPatientCount();
 }

@@ -1,0 +1,52 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+<div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-primary text-center text-white">
+                <h3>ADMIN DASHBOARD</h3>
+            </div>
+            <div class="card-body align-center">
+            	<div class="row justify-content-center">
+            	 	<div class="col-4">
+            	 		<button type="button" class="btn btn-primary btn-lg">
+    						DOCTORS <span class="badge badge-light">[[${doctors}]]</span>
+  				 		</button>
+            	 	</div>
+            	 	<div class="col-4">
+            	 		<button type="button" class="btn btn-success btn-lg">
+    						PATIENTS <span class="badge badge-light">[[${patients}]]</span>
+  						 </button>
+            	 	</div>
+            	</div>
+            	<br/>
+            	<div class="row justify-content-center">
+            	 	<div class="col-4">
+            	 		 <button type="button" class="btn btn-info btn-lg">
+    						APPOINTMENTS <span class="badge badge-light">[[${appointments}]]</span>
+  				 		</button>
+            	 	</div>
+            	 	<div class="col-4">
+            	 		<button type="button" class="btn btn-dark btn-lg">
+    						SPECIALIZATION <span class="badge badge-light">[[${specialization}]]</span>
+  				 		</button>
+            	 	</div>
+            	 	
+            	</div>
+            	 	<hr/>
+            	<div class="row justify-content-center">
+            	 	<div class="col-4">
+            	 		<img th:src="@{/adminA.jpg}"/>
+            	 	</div>
+            	 	<div class="col-4">
+						<img th:src="@{/adminB.jpg}"/>
+            	 	</div>
+            	</div>				  				                 
+            </div>
+        </div>
+    </div>
+</body>
+</html>
